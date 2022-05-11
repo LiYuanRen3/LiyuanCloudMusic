@@ -1,0 +1,111 @@
+<view class="searchContainer">
+  <!-- 头部搜索区域 -->
+  <view class="header">
+    <view class="searchInput">
+      <text class="iconfont icon-search1 searchIcon"></text>
+      <input type="text" value="{{searchContent}}" placeholder="{{placeholderContent}}" placeholder-class="placeholder" bindinput="handleInputChange"/>
+      <text class="clear" bindtap="clearSearchContent" hidden="{{!searchContent}}">×</text>
+    </view>
+    <text class="cancel" bindtap="getsearchSongs">搜索</text>
+  </view>
+
+  <!-- 搜索歌曲列表 -->
+  <block wx:if='{{SingleContentdisList.length}}'>
+    <!-- 你可能感兴趣 -->
+    <view class="musicinterest">
+      <text class="interestText">你可能感兴趣</text>
+      <view class="Singer">
+        <image src="{{SingerContentdisList.img1v1Url}}"></image>
+        <text class="singername">歌手：{{SingerContentdisList.name}}</text>
+        <text class="attention">+关注</text>
+      </view>
+      <view class="Album">
+        <image src="{{AlbumContentdisList.img}}"></image>
+        <view>
+          <text>专辑：{{AlbumContentdisList.name}}</text>
+          <text class="singername">{{AlbumContentdisList.singerName}}</text>
+        </view>
+        
+      </view>
+    </view>
+    <!-- 单曲 -->
+    <view class="ListContainer">
+      <view class="listHeader">
+        <text class="Single">单曲</text>
+        <text class="changeMore">▶播放</text>
+      </view>
+
+      <!-- 内容区 -->
+      <scroll-view scroll-y class='listScroll'>
+        <view class="scrollItem"
+          wx:for="{{SingleContentdisList}}"
+          wx:key="id"
+          data-index="{{index}}"
+          data-song='{{item}}' 
+          bindtap="toSongDetail"
+        >
+          <image src="{{item.album.artist.img1v1Url}}"></image>
+          <view class="musicInfo">
+            <text class="musicName">{{item.name}}</text>
+            <text class="author">{{item.artists[0].name}}</text>
+          </view>
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </scroll-view>
+    </view>
+  </block>
+  
+  <block wx:else>
+    <block wx:if='{{searchList.length}}'>
+    <!-- 搜索内容展示 -->
+    <view class="showSearchContent">
+      <view class="searchContent">搜索内容: {{searchContent}}</view>
+      <view class="searchList">
+        <view class="searchItem"
+          wx:for="{{searchList}}"
+          wx:key="id"
+          data-song="{{item}}"
+          bindtap="HotSearch"
+        >
+          <text class="iconfont icon-search1"></text>
+          <text class="content">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+    </block>
+
+    <block wx:else>
+      <!-- 搜索历史记录 -->
+      <view class="history" wx:if="{{historyList.length}}">
+        <view class="title">历史</view>
+        <view class="historyItem"
+        wx:for="{{historyList}}"
+        wx:key="item"
+        data-song="{{item}}"
+        bindtap="HotSearch"
+        >
+          {{item}}
+        </view>
+        <text class="iconfont icon-shanchu delete" bindtap="deleteSearchHistory"></text>
+      </view>
+      <!-- 热搜榜 -->
+      <view class="hotContainer">
+        <view class="title">热搜榜</view>
+        <!-- 热搜列表 -->
+        <view class="hotList">
+          <view class="hotItem"
+          wx:for="{{hotList}}"
+          wx:key="searchWord"
+          data-song="{{item}}"
+          bindtap="HotSearch"
+          >
+            <text class="order">{{index + 1}}</text>
+            <text>{{item.searchWord}}</text>
+            <image class="iconImg" wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}"></image>
+          </view>
+        </view>
+      </view>
+    </block>
+  </block>
+
+</view>

@@ -1,0 +1,94 @@
+<view class="playlistDetailsContainer">
+  <!-- 歌单区域 -->
+  <block wx:if="{{isRast!=3}}">
+    <!-- 头部 -->
+    <view class="header">
+        <view class="avatar">
+          <image src="{{PlaylistDetails.coverImgUrl}}"></image>
+        </view>
+
+        <view class="introduction">
+          <text class="playlistName mone">{{PlaylistDetails.name}}</text>
+          <view class="creator">
+            <image src="{{PlaylistDetails.creator.avatarUrl}}"></image>
+            <text> {{PlaylistDetails.creator.nickname}} ></text>
+          </view>
+          <view class="description">
+            <text class="mone" wx:if="{{PlaylistDetails.description!=null}}"> {{PlaylistDetails.description}} ></text>
+            <text wx:else>离渊云音乐，给你最好的音质体验。></text>
+          </view>
+        </view>
+    </view>
+    <!-- 列表区域 -->
+    <view class="ListContainer">
+      <view class="listHeader">
+        <text>播放全部</text>
+        <text class="changeMore">多选</text>
+      </view>
+      <!-- 内容区 -->
+      <scroll-view scroll-y class='listScroll'>
+        <view class="scrollItem"
+        wx:for="{{PlaylistDetails.tracks}}"
+        wx:key="id"
+        data-index="{{index}}"
+        data-song='{{item}}' 
+        data-pid="{{playlistId}}"
+        bindtap="toSongDetail"
+        >
+          <image src="{{item.al.picUrl}}"></image>
+          <view class="musicInfo">
+            <text class="musicName">{{item.name}}</text>
+            <text class="author" wx:if ="{{item.ar[0].name!=null}}">{{item.ar[0].name}}</text>
+            <text class="author" wx:else>未知艺人</text>
+          </view>
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </scroll-view>
+    </view>
+  </block>
+  <!-- 播客区域 -->
+  <block wx:else>
+    <!-- 头部 -->
+    <view class="header">
+        <view class="avatar">
+          <image src="{{podcastDetails.picUrl}}"></image>
+        </view>
+
+        <view class="introduction">
+          <text class="playlistName mone">{{podcastDetails.name}}</text>
+          <view class="creator">
+            <image src="{{podcastDetails.dj.avatarUrl}}"></image>
+            <text> {{podcastDetails.dj.nickname}} ></text>
+          </view>
+          <view class="description">
+            <text class="mone" wx:if="{{podcastDetails.desc!=null}}"> {{podcastDetails.desc}} ></text>
+            <text wx:else>离渊云音乐，给你最好的音质体验。></text>
+          </view>
+        </view>
+    </view>
+    <!-- 列表区域 -->
+    <view class="ListContainer">
+      <view class="listHeader">
+        <text>播放全部</text>
+        <text class="changeMore">多选</text>
+      </view>
+      <!-- 内容区 -->
+      <scroll-view scroll-y class='listScroll'>
+        <view class="scrollItem"
+        wx:for="{{podcastDetailt}}"
+        wx:key="id"
+        data-index="{{index}}"
+        data-song='{{item}}' 
+        bindtap="toSongDetaildj"
+        >
+          <image src="{{item.coverUrl}}"></image>
+          <view class="musicInfo">
+            <text class="musicName">{{item.name}}</text>
+            <text class="author" >{{item.dj.nickname}}</text>
+          </view>
+          <text class="iconfont icon-gengduo"></text>
+        </view>
+      </scroll-view>
+    </view>
+  </block>
+</view>

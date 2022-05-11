@@ -1,0 +1,9 @@
+{
+  "name": "liyuanrenmusic",
+  "version": "1.0.0",
+  "dependencies": {
+    "moment": "^2.29.1",
+    "monent": "0.0.2-security",
+    "pubsub-js": "^1.9.3"
+  }
+}

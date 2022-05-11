@@ -1,0 +1,107 @@
+<view class="indexContainer">
+
+  <!-- 轮播图 -->
+  <swiper class="banners" 
+  indicator-dots indicator-color="ivory" 
+  indicator-active-color="#2f54eb"
+  circular
+  autoplay interval="5000"
+  >
+    <view  class="imgshell">
+      <swiper-item wx:for="{{bannerList}}" wx:key="bannerId" wx:for-item="bannersItem">
+        <image src="{{bannersItem.pic}}" ></image>
+      </swiper-item>
+    </view>
+  </swiper>
+
+  <!-- 图标导航区域 -->
+  <view class="navContainer">
+    <view class="navitem">
+      <text class="iconfont icon-meirituijian-"  bindtap="toRecommendSong"></text>
+      <text>每日推荐</text>
+    </view>
+    <view class="navitem">
+      <text class="iconfont icon-gedan1"></text>
+      <text>歌单</text>
+    </view>
+    <view class="navitem">
+      <text class="iconfont icon-icon-ranking"></text>
+      <text>排行榜</text>
+    </view>
+    <view class="navitem">
+      <text class="iconfont icon-diantai"></text>
+      <text>电台</text>
+    </view>
+    <view class="navitem">
+      <text class="iconfont icon-zhiboguankanliangbofangsheyingshexiangjixianxing"></text>
+      <text>直播</text>
+    </view>
+  </view>
+
+  <!-- 推荐歌曲区域 -->
+  <view class="recommendContainer">
+    <!-- 头部区域 -->
+    <NavHeader nav="推荐歌单"></NavHeader>
+    <!-- 内容区 -->
+    <scroll-view class="recommendScroll" enable-flex scroll-x>
+      <view class="scrollitem"
+      wx:for="{{recommendList}}"
+      wx:key="id"
+      data-song='{{item}}'
+      bindtap="toPlaylistDetails"
+      >
+        <image src="{{item.picUrl}}"/>
+        <text>{{item.name}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 热门电台区域 -->
+  <view class="recommendContainer">
+    <!-- 头部区域 -->
+    <NavHeader nav="热门电台"></NavHeader>
+    <!-- 内容区 -->
+    <scroll-view class="recommendScroll recommendScrolldj" enable-flex scroll-x>
+      <view class="scrollitem scrollitemdj"
+      wx:for="{{radioStationListData}}"
+      wx:key="id"
+      data-song='{{item}}'
+      bindtap="topodcastDetails"
+      >
+        <image src="{{item.picUrl}}"/>
+        <text>{{item.name}}</text>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <!-- 排行榜区域 -->
+  <view  class="topList">
+    <!-- 头部区域 -->
+    <NavHeader nav="排行榜"></NavHeader>
+    <!-- 内容区域 -->
+    <swiper class="topListSwiper" circular next-margin="50rpx" previous-margin="20rpx">
+      <swiper-item
+      wx:for="{{topList}}"
+      wx:key="name"
+      data-song='{{item}}' 
+      bindtap="toPlaylistDetails"
+      >
+        <view class="swiperItem">
+          <view class="title">{{item.name}}</view>
+          <view 
+          class="musicItem"
+          wx:for="{{item.tracks}}"
+          wx:key="id"
+          wx:for-item="musicItem"
+          >
+            <image src="{{musicItem.al.picUrl}}"/>
+            <text class="count">{{index+1}}</text>
+            <text class="musicName">{{musicItem.name}}</text>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
+
+

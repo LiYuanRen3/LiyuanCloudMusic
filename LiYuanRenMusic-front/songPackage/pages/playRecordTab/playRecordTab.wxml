@@ -1,0 +1,45 @@
+<view class="playlistDetailsContainer">
+  <!-- 头部 -->
+  <view class="header">
+      <view class="avatar">
+        <image src="../../../static/images/LogoBlack.png"></image>
+      </view>
+
+      <view class="introduction">
+        <text class="playlistName mone">{{userinfo.nickname}}的播放记录🎵</text>
+        <view class="creator">
+          <image src="{{userinfo.avatarUrl}}"></image>
+          <text> {{userinfo.nickname}}</text>
+        </view>
+        <view class="description">
+          <text class="fontContent mone"> {{userinfo.signature}}></text>
+        </view>
+      </view>
+  </view>
+
+  <!-- 列表区域 -->
+  <view class="ListContainer">
+    <view class="listHeader">
+      <text>播放全部</text>
+      <text class="changeMore">多选</text>
+    </view>
+
+    <!-- 内容区 -->
+    <scroll-view scroll-y class='listScroll'>
+      <view class="scrollItem"
+      wx:for="{{recentPlayweekData}}"
+      wx:key="id"
+      data-index="{{index}}"
+      data-song='{{item.song}}' 
+      bindtap="toSongDetail"
+      >
+        <image src="{{item.song.al.picUrl}}"></image>
+        <view class="musicInfo">
+          <text class="musicName">{{item.song.name}}</text>
+          <text class="author">{{item.song.ar[0].name}}</text>
+        </view>
+        <text class="iconfont icon-gengduo"></text>
+      </view>
+    </scroll-view>
+  </view>
+</view>
